@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>100 Ways to Say I Love You ❤️</title>
+<title>100 Ways to Say I Love You</title>
 
 <style>
 * {
@@ -13,553 +13,449 @@
     box-sizing: border-box;
 }
 
-body {
-    min-height: 100vh;
+html, body {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    background: #090616;
+}
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: Georgia, serif;
-    color: white;
-    background:
-        radial-gradient(circle at center, #38204f 0%, #170d2b 48%, #080611 100%);
 }
 
-.stars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.star {
-    position: absolute;
-    color: #e9c6ef;
-    opacity: 0.55;
-    animation: twinkle 3s infinite alternate;
-}
-
-@keyframes twinkle {
-    from { opacity: 0.15; transform: scale(.7); }
-    to { opacity: .8; transform: scale(1.2); }
-}
-
-.container {
-    width: min(92vw, 550px);
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.subtitle {
-    color: #d5b2df;
-    letter-spacing: 5px;
-    font-size: 11px;
-    margin-bottom: 13px;
-}
-
-h1 {
-    font-size: clamp(27px, 7vw, 43px);
-    font-weight: normal;
-    letter-spacing: 2px;
-    color: #fff0fa;
-    text-shadow: 0 0 25px #c77de0;
-}
-
-h1 span {
-    color: #edb2d3;
-}
-
-.description {
-    color: #bba6ca;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    letter-spacing: 2px;
-    margin-top: 12px;
-}
-
-.wheel {
-    width: min(78vw, 390px);
-    aspect-ratio: 1;
-    position: relative;
-    margin: 38px auto 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.outer-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(232, 185, 222, .55);
-    box-shadow:
-        0 0 20px rgba(214, 126, 222, .2),
-        inset 0 0 25px rgba(214, 126, 222, .08);
-}
-
-.middle-ring {
-    position: absolute;
-    inset: 12%;
-    border-radius: 50%;
-    border: 1px dashed rgba(232, 185, 222, .5);
-    animation: rotate 45s linear infinite;
-}
-
-.inner-ring {
-    position: absolute;
-    inset: 23%;
-    border-radius: 50%;
-    border: 1px solid rgba(232, 185, 222, .25);
-}
-
-@keyframes rotate {
-    to { transform: rotate(360deg); }
-}
-
-.dots {
-    position: absolute;
-    inset: 0;
-    animation: rotate 70s linear infinite;
-}
-
-.dot {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: #e7b9db;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #e7b9db;
-}
-
-.dot:nth-child(3n) {
-    background: #e6c887;
-    box-shadow: 0 0 9px #e6c887;
-    width: 4px;
-    height: 4px;
-}
-
-.center {
-    width: 68%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(circle, #392249, #180e29 75%);
-    border: 1px solid rgba(231, 199, 218, .45);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-shadow:
-        0 0 35px rgba(211, 119, 215, .2),
-        inset 0 0 25px rgba(225, 169, 218, .08);
-    position: relative;
-}
-
-.heart {
-    font-size: 27px;
-    margin-bottom: 10px;
-    animation: heartbeat 1.5s infinite;
-    filter: drop-shadow(0 0 10px #ef8fc4);
-}
-
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.18); }
-}
-
-.phrase {
-    font-size: clamp(15px, 4vw, 21px);
-    line-height: 1.5;
-    color: #fff0fa;
-    min-height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity .3s, transform .3s;
-}
-
-.phrase.fade {
-    opacity: 0;
-    transform: translateY(8px);
-}
-
-.counter {
-    font-family: Arial, sans-serif;
-    color: #e6c78e;
-    font-size: 11px;
-    letter-spacing: 3px;
-    margin-top: 12px;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 13px;
-    margin-top: 12px;
-}
-
-button {
-    border: 1px solid rgba(232, 189, 221, .5);
-    background: rgba(91, 48, 102, .3);
-    color: #fff0fa;
-    padding: 12px 22px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 12px;
-    letter-spacing: 1px;
-    transition: .25s;
-}
-
-button:hover {
-    background: #9d5a9c;
-    box-shadow: 0 0 18px #b96bb5;
-    transform: translateY(-2px);
-}
-
-button:active {
-    transform: scale(.95);
-}
-
-.progress {
-    width: 65%;
-    height: 2px;
-    margin: 24px auto 0;
-    background: rgba(255,255,255,.15);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-bar {
+canvas {
+    display: block;
+    width: 100%;
     height: 100%;
-    width: 1%;
-    background: linear-gradient(90deg, #bd83d4, #edc28c);
-    transition: width .4s;
-}
-
-.footer {
-    color: #927a9e;
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    margin-top: 22px;
-}
-
-@media (max-width: 400px) {
-    .wheel {
-        margin-top: 30px;
-        margin-bottom: 22px;
-    }
-
-    button {
-        padding: 11px 17px;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
-
-<main class="container">
-
-    <div class="subtitle">A LITTLE COLLECTION OF LOVE</div>
-
-    <h1>100 Ways to Say <span>I Love You</span></h1>
-
-    <p class="description">
-        ONE HEART · A HUNDRED WAYS · ENDLESS FEELINGS
-    </p>
-
-    <div class="wheel">
-
-        <div class="outer-ring"></div>
-        <div class="middle-ring"></div>
-        <div class="inner-ring"></div>
-
-        <div class="dots" id="dots"></div>
-
-        <div class="center">
-
-            <div class="heart">♥</div>
-
-            <div class="phrase" id="phrase">
-                I love you.
-            </div>
-
-            <div class="counter" id="counter">
-                01 / 100
-            </div>
-
-        </div>
-    </div>
-
-    <div class="buttons">
-
-        <button onclick="previousPhrase()">
-            PREVIOUS
-        </button>
-
-        <button onclick="togglePlay()" id="playButton">
-            PAUSE
-        </button>
-
-        <button onclick="nextPhrase()">
-            NEXT
-        </button>
-
-    </div>
-
-    <div class="progress">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <div class="footer">
-        MADE WITH LOVE ♥
-    </div>
-
-</main>
+<canvas id="loveCanvas"></canvas>
 
 <script>
 
+const canvas = document.getElementById("loveCanvas");
+const ctx = canvas.getContext("2d");
+
 const phrases = [
-"I love you.",
-"I adore you.",
-"You mean the world to me.",
-"My heart belongs to you.",
-"You make my world brighter.",
-"I'm so lucky to have you.",
-"You are my favorite person.",
-"I cherish you.",
-"You make every day better.",
-"I care about you more than words can say.",
-"You are always in my thoughts.",
-"You make my heart happy.",
-"I feel at home with you.",
-"You are precious to me.",
-"I appreciate everything about you.",
-"You bring joy into my life.",
-"I choose you, every day.",
-"You are one of a kind.",
-"My life is better with you in it.",
-"I am grateful for you.",
-"You have a special place in my heart.",
-"You make me smile without trying.",
-"I believe in you.",
-"I am always cheering for you.",
-"You inspire me to be better.",
-"I love being around you.",
-"You make ordinary moments special.",
-"I treasure our memories.",
-"You are my happy place.",
-"I will always care about you.",
-"You make life feel beautiful.",
-"I love your kind heart.",
-"You are more amazing than you know.",
-"I am thankful our paths crossed.",
-"You make the little things matter.",
-"I admire you so much.",
-"You are a gift in my life.",
-"I feel lucky every time we talk.",
-"You make my days brighter.",
-"I value you more than you know.",
-"You are unforgettable to me.",
-"I love your way of seeing the world.",
-"You make me feel understood.",
-"I want the best for you.",
-"You are important to me.",
-"I am happiest when we share a moment.",
-"You make my heart feel full.",
-"I love the person you are.",
-"You deserve all the happiness in the world.",
-"I am proud of you.",
-"You make everything feel a little easier.",
-"I cherish every moment with you.",
-"You are a beautiful part of my life.",
-"I love your laugh.",
-"I love your smile.",
-"You brighten even my quietest days.",
-"I never take you for granted.",
-"You matter so much to me.",
-"I am grateful for your presence.",
-"You make my world feel warmer.",
-"I love discovering life with you.",
-"You are truly special to me.",
-"I am always happy to hear from you.",
-"You bring out the best in me.",
-"I respect and appreciate you.",
-"You make every conversation worthwhile.",
-"I hold you close in my heart.",
-"You are a reason to smile.",
-"I love how you are simply you.",
-"You make my world more colorful.",
-"I am thankful for your kindness.",
-"You are worth every beautiful word.",
-"I feel lucky to know you.",
-"You make the future feel brighter.",
-"I will always choose kindness with you.",
-"You are deeply appreciated.",
-"I love sharing moments with you.",
-"You make happiness feel simple.",
-"I am glad you are in my life.",
-"You are close to my heart.",
-"I care about your dreams.",
-"Your happiness matters to me.",
-"I love the joy you bring.",
-"You make the world feel kinder.",
-"I am grateful for who you are.",
-"You make memories unforgettable.",
-"I see so much good in you.",
-"You are always worth celebrating.",
-"I love your beautiful soul.",
-"You make my heart feel at peace.",
-"I am lucky to share this world with you.",
-"You are my favorite hello.",
-"I appreciate your little details.",
-"You make every moment count.",
-"I will always wish you well.",
-"You are loved more than you know.",
-"I am thankful for you, today and always.",
-"You make life sweeter.",
-"I love you more than words can explain.",
-"Simply put: I love you."
+"I love you",
+"I adore you",
+"You mean the world to me",
+"My heart belongs to you",
+"You make my world brighter",
+"I'm lucky to have you",
+"You are my favorite person",
+"I cherish you",
+"You make every day better",
+"I care about you deeply",
+"You are always in my thoughts",
+"You make my heart happy",
+"I feel at home with you",
+"You are precious to me",
+"I appreciate everything about you",
+"You bring joy into my life",
+"I choose you every day",
+"You are one of a kind",
+"My life is better with you",
+"I am grateful for you",
+"You have my heart",
+"You make me smile",
+"I believe in you",
+"I am always cheering for you",
+"You inspire me",
+"I love being around you",
+"You make moments special",
+"I treasure our memories",
+"You are my happy place",
+"I will always care about you",
+"You make life beautiful",
+"I love your kind heart",
+"You are amazing",
+"I am thankful for you",
+"You make everything better",
+"I admire you",
+"You are a gift in my life",
+"I feel lucky to know you",
+"You brighten my days",
+"I value you",
+"You are unforgettable",
+"I love your beautiful mind",
+"You make me feel understood",
+"I want the best for you",
+"You are important to me",
+"You make my heart full",
+"I love who you are",
+"You deserve happiness",
+"I am proud of you",
+"You make life easier",
+"I cherish every moment",
+"You are beautiful to me",
+"I love your laugh",
+"I love your smile",
+"You brighten my world",
+"I never take you for granted",
+"You matter so much",
+"I am grateful for you",
+"You make my world warmer",
+"I love sharing moments",
+"You are truly special",
+"I am happy to know you",
+"You bring out the best in me",
+"I appreciate you",
+"You make every conversation special",
+"You are in my heart",
+"You are my reason to smile",
+"I love the real you",
+"You make my world colorful",
+"I love your kindness",
+"You deserve every good thing",
+"I feel lucky to have you",
+"You make my future brighter",
+"I choose you",
+"You are appreciated",
+"I love every moment with you",
+"You make happiness simple",
+"I am glad you exist",
+"You are close to my heart",
+"I care about your dreams",
+"Your happiness matters",
+"I love your presence",
+"You make the world kinder",
+"I am grateful for who you are",
+"You make memories special",
+"I see the good in you",
+"You are worth celebrating",
+"I love your soul",
+"You bring me peace",
+"I am lucky to share this world",
+"You are my favorite hello",
+"I notice the little things",
+"You make every moment count",
+"I wish you endless happiness",
+"You are loved",
+"I am thankful for you",
+"You make life sweeter",
+"I love you beyond words",
+"Simply, I love you"
 ];
 
-let current = 0;
-let playing = true;
-let timer;
+// Animation settings
+const INTERVAL = 100;
+const DURATION = 550;
+const HOLD_TIME = 2500;
 
-const phraseElement = document.getElementById("phrase");
-const counterElement = document.getElementById("counter");
-const progressBar = document.getElementById("progressBar");
-const playButton = document.getElementById("playButton");
+let revealed = 0;
+let startTime = 0;
+let lastReveal = 0;
+let completedAt = 0;
+let animationFrame;
 
-// Create 100 decorative dots
+const stars = [];
 
-const dots = document.getElementById("dots");
+function resize() {
 
-for (let i = 0; i < 100; i++) {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    const dot = document.createElement("div");
-    dot.className = "dot";
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
 
-    const angle = (i / 100) * Math.PI * 2;
-    const radius = 48;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const x = 50 + radius * Math.cos(angle);
-    const y = 50 + radius * Math.sin(angle);
-
-    dot.style.left = x + "%";
-    dot.style.top = y + "%";
-
-    dots.appendChild(dot);
+    createStars();
 }
 
-// Create background stars
+function createStars() {
 
-const stars = document.getElementById("stars");
+    stars.length = 0;
 
-for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 65; i++) {
 
-    const star = document.createElement("span");
-
-    star.className = "star";
-    star.textContent = "✦";
-
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
-
-    star.style.fontSize =
-        (Math.random() * 9 + 5) + "px";
-
-    star.style.animationDelay =
-        Math.random() * 3 + "s";
-
-    stars.appendChild(star);
+        stars.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            size: Math.random() * 1.8 + 0.4,
+            phase: Math.random() * Math.PI * 2
+        });
+    }
 }
 
-// Display current phrase
+function background(w, h, time) {
 
-function displayPhrase() {
+    const gradient = ctx.createRadialGradient(
+        w / 2, h / 2, 10,
+        w / 2, h / 2, Math.max(w, h) * .8
+    );
 
-    phraseElement.classList.add("fade");
+    gradient.addColorStop(0, "#241334");
+    gradient.addColorStop(.55, "#120b22");
+    gradient.addColorStop(1, "#070511");
 
-    setTimeout(() => {
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
 
-        phraseElement.textContent = phrases[current];
+    stars.forEach(star => {
 
-        counterElement.textContent =
-            String(current + 1).padStart(2, "0")
-            + " / 100";
+        const alpha =
+            .25 + .45 * Math.sin(time / 900 + star.phase);
 
-        progressBar.style.width =
-            ((current + 1) / 100 * 100) + "%";
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = "#e6c6ed";
 
-        phraseElement.classList.remove("fade");
+        ctx.beginPath();
 
-    }, 250);
+        ctx.arc(
+            star.x,
+            star.y,
+            star.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+    });
+
+    ctx.globalAlpha = 1;
 }
 
-// Next phrase
+function drawRing(cx, cy, radius, time) {
 
-function nextPhrase() {
+    // Main outer ring
 
-    current = (current + 1) % phrases.length;
+    ctx.beginPath();
 
-    displayPhrase();
+    ctx.arc(
+        cx, cy, radius,
+        0, Math.PI * 2
+    );
 
-    resetTimer();
+    ctx.strokeStyle = "#c6a36b";
+    ctx.lineWidth = 1.3;
+    ctx.shadowColor = "#d9b477";
+    ctx.shadowBlur = 12;
+
+    ctx.stroke();
+
+    ctx.shadowBlur = 0;
+
+    // Inner ring
+
+    ctx.beginPath();
+
+    ctx.arc(
+        cx, cy, radius * .57,
+        0, Math.PI * 2
+    );
+
+    ctx.strokeStyle = "rgba(215,180,220,.35)";
+    ctx.lineWidth = 1;
+
+    ctx.setLineDash([3, 5]);
+    ctx.stroke();
+    ctx.setLineDash([]);
 }
 
-// Previous phrase
+function drawCenter(cx, cy, radius) {
 
-function previousPhrase() {
+    ctx.beginPath();
 
-    current =
-        (current - 1 + phrases.length) % phrases.length;
+    ctx.arc(
+        cx, cy, radius * .53,
+        0, Math.PI * 2
+    );
 
-    displayPhrase();
+    const gradient = ctx.createRadialGradient(
+        cx, cy, 0,
+        cx, cy, radius * .53
+    );
 
-    resetTimer();
+    gradient.addColorStop(0, "#251431");
+    gradient.addColorStop(1, "#10091f");
+
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(210,170,210,.35)";
+    ctx.lineWidth = 1;
+
+    ctx.stroke();
+
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    ctx.fillStyle = "#e8c98c";
+    ctx.font = "bold 10px Georgia";
+    ctx.letterSpacing = "3px";
+
+    ctx.fillText(
+        "100 WAYS TO SAY",
+        cx,
+        cy - radius * .20
+    );
+
+    ctx.fillStyle = "#fff0f8";
+    ctx.font = `bold ${Math.max(17, radius * .105)}px Georgia`;
+
+    ctx.fillText(
+        "I LOVE YOU",
+        cx,
+        cy - radius * .04
+    );
+
+    ctx.fillStyle = "#e6b9d9";
+    ctx.font = "italic 13px Georgia";
+
+    ctx.fillText(
+        "♥",
+        cx,
+        cy + radius * .13
+    );
+
+    ctx.fillStyle = "#c8a878";
+    ctx.font = "10px Georgia";
+
+    ctx.fillText(
+        `${revealed} / 100`,
+        cx,
+        cy + radius * .28
+    );
 }
 
-// Automatic rotation
+function drawPhrase(index, cx, cy, radius, time) {
 
-function startTimer() {
+    const item = index;
+    const appearedAt = startTime + item * INTERVAL;
 
-    clearInterval(timer);
+    const elapsed = time - appearedAt;
 
-    timer = setInterval(() => {
+    if (elapsed < 0) return;
 
-        if (playing) {
+    const progress = Math.min(elapsed / DURATION, 1);
 
-            current = (current + 1) % phrases.length;
+    // Smooth fade and movement
 
-            displayPhrase();
+    const ease = 1 - Math.pow(1 - progress, 3);
 
+    const angle =
+        (Math.PI * 2 * item / phrases.length)
+        - Math.PI / 2;
+
+    const inner = radius * .60;
+    const outer = radius * .91;
+
+    const distance =
+        inner + (outer - inner) * ease;
+
+    const x = cx + Math.cos(angle) * distance;
+    const y = cy + Math.sin(angle) * distance;
+
+    ctx.save();
+
+    ctx.translate(x, y);
+
+    // Rotate text around the circle
+
+    ctx.rotate(angle + Math.PI / 2);
+
+    ctx.globalAlpha = progress;
+
+    const color = item % 5 === 0
+        ? "#e6c88e"
+        : "#d8a8d5";
+
+    ctx.fillStyle = color;
+
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 7 * progress;
+
+    ctx.font = `${Math.max(7, Math.min(10, radius * .022))}px Georgia`;
+
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    ctx.fillText(
+        phrases[item],
+        0,
+        0,
+        radius * .65
+    );
+
+    ctx.restore();
+}
+
+function draw(time) {
+
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    const cx = w / 2;
+    const cy = h / 2;
+
+    const radius = Math.min(w, h) * .37;
+
+    background(w, h, time);
+
+    drawRing(cx, cy, radius, time);
+
+    // Reveal one phrase every 0.1 seconds
+
+    if (revealed < phrases.length) {
+
+        if (time - lastReveal >= INTERVAL) {
+
+            revealed++;
+            lastReveal = time;
+        }
+    }
+
+    // Draw all revealed phrases
+
+    for (let i = 0; i < revealed; i++) {
+
+        drawPhrase(i, cx, cy, radius, time);
+    }
+
+    drawCenter(cx, cy, radius);
+
+    // Restart the animation after completion
+
+    if (revealed === phrases.length) {
+
+        if (completedAt === 0) {
+            completedAt = time;
         }
 
-    }, 2600);
+        if (time - completedAt >= HOLD_TIME) {
+
+            revealed = 0;
+            startTime = time;
+            lastReveal = time;
+            completedAt = 0;
+        }
+    }
+
+    animationFrame = requestAnimationFrame(draw);
 }
 
-// Pause / Play
+function start() {
 
-function togglePlay() {
+    resize();
 
-    playing = !playing;
+    startTime = performance.now();
+    lastReveal = startTime;
 
-    playButton.textContent =
-        playing ? "PAUSE" : "PLAY";
-
+    requestAnimationFrame(draw);
 }
 
-function resetTimer() {
-    startTimer();
-}
+window.addEventListener("resize", resize);
 
-startTimer();
+start();
 
 </script>
 
