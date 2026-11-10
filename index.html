@@ -1,0 +1,422 @@
+
+"""100 Ways to Say I Love You
+Animated romantic love wheel.
+Python 3.9+ | No third-party packages required.
+"""
+
+import math
+import tkinter as tk
+from tkinter import font as tkfont
+
+PHRASES = [
+    "I love you.",
+    "I adore you.",
+    "You mean the world to me.",
+    "My heart belongs to you.",
+    "You make my world brighter.",
+    "I'm so lucky to have you.",
+    "You are my favorite person.",
+    "I cherish you.",
+    "You make every day better.",
+    "I care about you more than words can say.",
+    "You are always in my thoughts.",
+    "You make my heart happy.",
+    "I feel at home with you.",
+    "You are precious to me.",
+    "I appreciate everything about you.",
+    "You bring joy into my life.",
+    "I choose you, every day.",
+    "You are one of a kind.",
+    "My life is better with you in it.",
+    "I am grateful for you.",
+    "You have a special place in my heart.",
+    "You make me smile without trying.",
+    "I believe in you.",
+    "I am always cheering for you.",
+    "You inspire me to be better.",
+    "I love being around you.",
+    "You make ordinary moments special.",
+    "I treasure our memories.",
+    "You are my happy place.",
+    "I will always care about you.",
+    "You make life feel beautiful.",
+    "I love your kind heart.",
+    "You are more amazing than you know.",
+    "I am thankful our paths crossed.",
+    "You make the little things matter.",
+    "I admire you so much.",
+    "You are a gift in my life.",
+    "I feel lucky every time we talk.",
+    "You make my days brighter.",
+    "I value you more than you know.",
+    "You are unforgettable to me.",
+    "I love your way of seeing the world.",
+    "You make me feel understood.",
+    "I want the best for you.",
+    "You are important to me.",
+    "I am happiest when we share a moment.",
+    "You make my heart feel full.",
+    "I love the person you are.",
+    "You deserve all the happiness in the world.",
+    "I am proud of you.",
+    "You make everything feel a little easier.",
+    "I cherish every moment with you.",
+    "You are a beautiful part of my life.",
+    "I love your laugh.",
+    "I love your smile.",
+    "You brighten even my quietest days.",
+    "I never take you for granted.",
+    "You matter so much to me.",
+    "I am grateful for your presence.",
+    "You make my world feel warmer.",
+    "I love discovering life with you.",
+    "You are truly special to me.",
+    "I am always happy to hear from you.",
+    "You bring out the best in me.",
+    "I respect and appreciate you.",
+    "You make every conversation worthwhile.",
+    "I hold you close in my heart.",
+    "You are a reason to smile.",
+    "I love how you are simply you.",
+    "You make my world more colorful.",
+    "I am thankful for your kindness.",
+    "You are worth every beautiful word.",
+    "I feel lucky to know you.",
+    "You make the future feel brighter.",
+    "I will keep choosing kindness with you.",
+    "You are deeply appreciated.",
+    "I love sharing moments with you.",
+    "You make happiness feel simple.",
+    "I am glad you are in my life.",
+    "You are close to my heart.",
+    "I care about your dreams.",
+    "Your happiness matters to me.",
+    "I love the joy you bring.",
+    "You make the world feel kinder.",
+    "I am grateful for who you are.",
+    "You make memories unforgettable.",
+    "I see so much good in you.",
+    "You are always worth celebrating.",
+    "I love your beautiful soul.",
+    "You make my heart feel at peace.",
+    "I am lucky to share this world with you.",
+    "You are my favorite hello.",
+    "I appreciate your little details.",
+    "You make every moment count.",
+    "I will always wish you well.",
+    "You are loved more than you know.",
+    "I am thankful for you, today and always.",
+    "You make life sweeter.",
+    "I love you more than words can explain.",
+    "Simply put: I love you."
+]
+
+BACKGROUND_TOP = "#08051a"
+BACKGROUND_BOTTOM = "#21103b"
+GOLD = "#e7c77a"
+WHITE = "#f5efff"
+
+
+def hex_to_rgb(value):
+    value = value.lstrip("#")
+    return tuple(
+        int(value[i:i + 2], 16)
+        for i in (0, 2, 4)
+    )
+
+
+def rgb_to_hex(rgb):
+    return "#{:02x}{:02x}{:02x}".format(
+        *[max(0, min(255, int(v))) for v in rgb]
+    )
+
+
+def blend(a, b, amount):
+    ar, ag, ab = hex_to_rgb(a)
+    br, bg, bb = hex_to_rgb(b)
+
+    return rgb_to_hex((
+        ar + (br - ar) * amount,
+        ag + (bg - ag) * amount,
+        ab + (bb - ab) * amount
+    ))
+
+
+class LoveWheelApp:
+
+    def __init__(self, root):
+        self.root = root
+        self.root.title("100 Ways to Say I Love You")
+        self.root.geometry("900x900")
+        self.root.minsize(560, 560)
+        self.root.configure(bg=BACKGROUND_TOP)
+
+        self.canvas = tk.Canvas(
+            root,
+            bg=BACKGROUND_TOP,
+            highlightthickness=0
+        )
+        self.canvas.pack(fill="both", expand=True)
+
+        self.rotation = 0.0
+        self.current_index = 0
+        self.last_phrase_change = 0
+        self.animation_id = None
+
+        self.root.bind("<Configure>", self.on_resize)
+        self.root.bind(
+            "<Escape>",
+            lambda _event: self.root.destroy()
+        )
+        self.root.bind(
+            "<space>",
+            lambda _event: self.next_phrase()
+        )
+
+        self.draw_static_background()
+        self.animate()
+
+    def draw_static_background(self):
+        self.canvas.delete("background")
+
+        width = max(self.canvas.winfo_width(), 560)
+        height = max(self.canvas.winfo_height(), 560)
+
+        steps = 90
+
+        for i in range(steps):
+            y0 = int(height * i / steps)
+            y1 = int(height * (i + 1) / steps) + 1
+
+            color = blend(
+                BACKGROUND_TOP,
+                BACKGROUND_BOTTOM,
+                i / max(steps - 1, 1)
+            )
+
+            self.canvas.create_rectangle(
+                0, y0, width, y1,
+                fill=color,
+                outline=color,
+                tags="background"
+            )
+
+        for i in range(65):
+            x = (i * 137 + 41) % width
+            y = (i * 211 + 73) % height
+            r = 1 if i % 4 else 2
+
+            self.canvas.create_oval(
+                x-r, y-r, x+r, y+r,
+                fill="#59436f",
+                outline="",
+                tags="background"
+            )
+
+        self.canvas.tag_lower("background")
+
+    def on_resize(self, event):
+        if event.widget is self.root:
+            self.draw_static_background()
+
+    def next_phrase(self):
+        self.current_index = (
+            self.current_index + 1
+        ) % len(PHRASES)
+
+        self.last_phrase_change = (
+            self.root.tk.call("clock", "milliseconds")
+        )
+
+    def draw(self):
+        self.canvas.delete("art")
+
+        w = max(self.canvas.winfo_width(), 560)
+        h = max(self.canvas.winfo_height(), 560)
+
+        cx, cy = w / 2, h / 2
+
+        radius = min(w, h) * 0.405
+        inner_radius = radius * 0.60
+
+        # Outer circles
+        self.canvas.create_oval(
+            cx-radius, cy-radius,
+            cx+radius, cy+radius,
+            outline=GOLD,
+            width=1.2,
+            tags="art"
+        )
+
+        self.canvas.create_oval(
+            cx-inner_radius, cy-inner_radius,
+            cx+inner_radius, cy+inner_radius,
+            outline="#654b79",
+            width=1,
+            tags="art"
+        )
+
+        # 100 love messages around the circle
+        for i, phrase in enumerate(PHRASES):
+
+            angle = (
+                (2 * math.pi * i / len(PHRASES))
+                - math.pi / 2
+                + self.rotation
+            )
+
+            x = cx + math.cos(angle) * (
+                (radius + inner_radius) / 2
+            )
+
+            y = cy + math.sin(angle) * (
+                (radius + inner_radius) / 2
+            )
+
+            color = blend(
+                "#a98bd7",
+                "#e7a7bd",
+                (i % 30) / 29
+            )
+
+            size = max(
+                6,
+                min(9, int(min(w, h) / 95))
+            )
+
+            font = tkfont.Font(
+                family="Georgia",
+                size=size
+            )
+
+            self.canvas.create_text(
+                x, y,
+                text=phrase,
+                fill=color,
+                font=font,
+                width=110,
+                justify="center",
+                tags="art"
+            )
+
+        # Center panel
+        panel_r = inner_radius * 0.79
+
+        self.canvas.create_oval(
+            cx-panel_r, cy-panel_r,
+            cx+panel_r, cy+panel_r,
+            fill="#100a27",
+            outline="#3f2c58",
+            width=2,
+            tags="art"
+        )
+
+        self.canvas.create_text(
+            cx,
+            cy - panel_r * 0.42,
+            text="100 WAYS TO SAY",
+            fill=GOLD,
+            font=(
+                "Georgia",
+                max(8, int(w / 85)),
+                "bold"
+            ),
+            tags="art"
+        )
+
+        self.canvas.create_text(
+            cx,
+            cy - panel_r * 0.25,
+            text="I LOVE YOU",
+            fill=WHITE,
+            font=(
+                "Georgia",
+                max(15, int(w / 27)),
+                "bold"
+            ),
+            tags="art"
+        )
+
+        # Current love message
+        phrase = PHRASES[self.current_index]
+
+        phrase_font_size = max(
+            10,
+            min(17, int(w / 48))
+        )
+
+        self.canvas.create_text(
+            cx,
+            cy + panel_r * 0.13,
+            text=phrase,
+            fill="#f2d9ef",
+            font=(
+                "Georgia",
+                phrase_font_size,
+                "italic"
+            ),
+            width=panel_r * 1.45,
+            justify="center",
+            tags="art"
+        )
+
+        # Counter
+        self.canvas.create_text(
+            cx,
+            cy + panel_r * 0.52,
+            text=f"{self.current_index + 1:02d} / 100",
+            fill=GOLD,
+            font=(
+                "Georgia",
+                max(8, int(w / 95))
+            ),
+            tags="art"
+        )
+
+        # Instructions
+        self.canvas.create_text(
+            cx,
+            h - 24,
+            text=(
+                "Press SPACE for the next message"
+                "  •  ESC to close"
+            ),
+            fill="#8e7aa7",
+            font=("Arial", 9),
+            tags="art"
+        )
+
+    def animate(self):
+        now = self.root.tk.call(
+            "clock",
+            "milliseconds"
+        )
+
+        if self.last_phrase_change == 0:
+            self.last_phrase_change = now
+
+        if now - self.last_phrase_change >= 2600:
+            self.current_index = (
+                self.current_index + 1
+            ) % len(PHRASES)
+
+            self.last_phrase_change = now
+
+        self.rotation += 0.0018
+
+        self.draw()
+
+        self.animation_id = self.root.after(
+            45,
+            self.animate
+        )
+
+
+def main():
+    root = tk.Tk()
+    LoveWheelApp(root)
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
