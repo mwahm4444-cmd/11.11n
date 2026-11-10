@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11:11 | A Little Universe For You</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Playfair+Display:ital,wght@1,500&display=swap');
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  min-height:100vh;
+  overflow:hidden;
+  background:radial-gradient(ellipse at center,#24102e 0%,#100b1b 50%,#05040b 100%);
+  color:white;
+  font-family:'Cairo',sans-serif;
+  text-align:center;
+}
+
+#stars {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+.star {
+  position:absolute;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity:.15; transform:scale(.7); }
+  to { opacity:1; transform:scale(1.4); }
+}
+
+.container {
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+.date {
+  color:#e6a8cb;
+  letter-spacing:5px;
+  font-family:'Playfair Display',serif;
+  font-size:19px;
+}
+
+h1 {
+  font-size:clamp(35px,9vw,58px);
+  margin:15px 0;
+  background:linear-gradient(90deg,#fff,#ff9fc9,#fff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.subtitle {
+  color:#cbb9d5;
+  font-size:15px;
+  margin-bottom:30px;
+}
+
+button {
+  border:1px solid #e89ac2;
+  background:linear-gradient(120deg,#a83269,#682c76);
+  color:white;
+  padding:14px 32px;
+  border-radius:40px;
+  font-family:inherit;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 0 25px #d34b9150;
+  transition:.3s;
+}
+
+button:hover {
+  transform:scale(1.07);
+  box-shadow:0 0 35px #f77bb5;
+}
+
+#gift {
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  animation:appear 1.5s ease;
+}
+
+@keyframes appear {
+  from { opacity:0; transform:translateY(25px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* Animated rose */
+
+.rose {
+  position:relative;
+  width:180px;
+  height:230px;
+  margin:10px auto 0;
+  animation:grow 2s ease forwards;
+  transform-origin:bottom;
+}
+
+@keyframes grow {
+  from { transform:scale(.1); opacity:0; }
+  to { transform:scale(1); opacity:1; }
+}
+
+.stem {
+  position:absolute;
+  width:5px;
+  height:125px;
+  background:linear-gradient(#70c978,#174b31);
+  left:88px;
+  top:83px;
+  border-radius:10px;
+}
+
+.leaf {
+  position:absolute;
+  width:48px;
+  height:22px;
+  background:linear-gradient(90deg,#176d3e,#55b86a);
+  border-radius:100% 0 100% 0;
+}
+
+.leaf.one {
+  left:42px;
+  top:145px;
+  transform:rotate(25deg);
+}
+
+.leaf.two {
+  left:89px;
+  top:120px;
+  transform:rotate(180deg);
+}
+
+.flower {
+  position:absolute;
+  left:51px;
+  top:16px;
+  width:80px;
+  height:80px;
+  animation:sway 3s ease-in-out infinite alternate;
+  transform-origin:bottom center;
+}
+
+.petal {
+  position:absolute;
+  width:42px;
+  height:60px;
+  background:linear-gradient(145deg,#ffb0c9,#e20b4c 70%,#81052f);
+  border-radius:50% 50% 40% 40%;
+  left:19px;
+  top:0;
+  transform-origin:bottom center;
+  box-shadow:0 0 16px #ff174d55;
+}
+
+.petal:nth-child(1) { transform:rotate(0deg); }
+.petal:nth-child(2) { transform:rotate(72deg); }
+.petal:nth-child(3) { transform:rotate(144deg); }
+.petal:nth-child(4) { transform:rotate(216deg); }
+.petal:nth-child(5) { transform:rotate(288deg); }
+
+.center {
+  position:absolute;
+  background:#8e092b;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  top:25px;
+  left:25px;
+  box-shadow:0 0 15px #ffb0c9;
+}
+
+@keyframes sway {
+  from { transform:rotate(-5deg); }
+  to { transform:rotate(5deg); }
+}
+
+.message {
+  max-width:440px;
+  min-height:125px;
+  line-height:2.1;
+  color:#f7dce9;
+  font-size:15px;
+  margin:10px auto;
+  padding:15px;
+}
+
+.signature {
+  color:#ff9bc5;
+  font-family:'Playfair Display',serif;
+  font-size:23px;
+  margin-top:8px;
+}
+
+.heart {
+  position:fixed;
+  bottom:-30px;
+  color:#ff80b7;
+  pointer-events:none;
+  animation:float 6s linear forwards;
+  z-index:5;
+}
+
+@keyframes float {
+  to {
+    transform:translateY(-110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+footer {
+  color:#806e90;
+  font-size:11px;
+  margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<main class="container">
+
+  <section id="intro">
+    <div class="date">11 / 11 / 2026</div>
+    <h1>11:11</h1>
+    <div class="subtitle">
+      Some moments deserve to be eternal...
+      <br>
+      وهناك أشياء جميلة لا تكفي الكلمات لوصفها.
+    </div>
+
+    <button onclick="openGift()">
+      افتحي هديتك ♥
+    </button>
+  </section>
+
+  <section id="gift">
+
+    <div class="date">A LITTLE GIFT FOR YOU</div>
+
+    <div class="rose">
+      <div class="stem"></div>
+      <div class="leaf one"></div>
+      <div class="leaf two"></div>
+
+      <div class="flower">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <h1>إلى أجمل صدفة</h1>
+
+    <div class="message" id="message"></div>
+
+    <div class="signature">
+      With love, always ♡
+    </div>
+
+    <footer>
+      Made with love • 11:11
+    </footer>
+
+  </section>
+
+</main>
+
+<script>
+
+// Create the stars
+const stars = document.getElementById('stars');
+
+for(let i=0; i<110; i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*100+'%';
+  s.style.width=(Math.random()*3+1)+'px';
+  s.style.height=s.style.width;
+  s.style.animationDelay=Math.random()*3+'s';
+  stars.appendChild(s);
+}
+
+// Your personal message
+const text =
+`في يوم 11:11 حبيت أصنع لك شيئاً مختلفاً،
+شيئاً يبقى ذكرى جميلة عندك.
+
+يمكن هذه مجرد صفحة صغيرة صنعتها بالبرمجة،
+لكن كل تفصيلة فيها اخترتها لتكون هدية مميزة لك.
+
+أتمنى أن تكون أيامك مليئة بالفرح،
+وأن لا تفقدي أبداً تلك الابتسامة الجميلة.
+
+شكراً لأنك شخص مميز في حياتي.
+كل عام وأنتِ بخير، وكل 11:11 وأنتِ بخير. ♥`;
+
+let index=0;
+
+function openGift(){
+  document.getElementById('intro').style.display='none';
+  document.getElementById('gift').style.display='flex';
+
+  const message=document.getElementById('message');
+
+  const timer=setInterval(()=>{
+    if(index<text.length){
+      message.innerHTML += text[index]==='\n' ? '<br>' :
+        text[index].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      index++;
+    }else{
+      clearInterval(timer);
+    }
+  },65);
+
+  setInterval(createHeart,500);
+}
+
+function createHeart(){
+  const heart=document.createElement('div');
+  heart.className='heart';
+  heart.innerHTML='♥';
+  heart.style.left=Math.random()*100+'%';
+  heart.style.fontSize=(12+Math.random()*20)+'px';
+  document.body.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),6000);
+}
+
+</script>
+</body>
+</html>
