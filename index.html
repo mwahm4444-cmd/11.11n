@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#100719">
-<title>100 Words of Love</title>
+<title>My Flower of Love</title>
 
 <style>
 * {
@@ -22,78 +22,108 @@ html, body {
 }
 
 canvas {
+    display: block;
     width: 100%;
     height: 100%;
-    display: block;
 }
 </style>
 </head>
 
 <body>
-
 <canvas id="flower"></canvas>
 
 <script>
 
+// =====================================
+// LOVE WORDS
+// =====================================
+
+const rootWords = [
+"My Love", "Forever", "Always",
+"My Heart", "Beloved", "True Love",
+"My World", "My Everything", "Only You",
+"My Darling", "Endless Love", "My Angel"
+];
+
+const stemWords = [
+"My Sweetheart", "My Sunshine",
+"My Happiness", "My Favorite",
+"My Precious", "My Dream",
+"My Dearest", "My Joy",
+"My Beautiful", "My Treasure",
+"My One & Only", "My Forever"
+];
+
+const leafWords = [
+"My Cutie", "Sweetie",
+"My Bunny", "My Baby",
+"My Little Star", "My Sunshine",
+"My Sweet Girl", "My Flower",
+"My Lovebug", "My Teddy",
+"My Honey", "My Treasure"
+];
+
+const petals = [
+["My Princess", "My Darling", "My Angel", "My Sweetheart"],
+["My Baby", "My Cutie", "My Precious", "My Love"],
+["My Queen", "My Beautiful", "My Dearest", "My Heart"],
+["My Kitten", "My Sweetie", "My Sunshine", "My Girl"],
+["My Bunny", "My Angel", "My Baby", "My World"],
+["My Flower", "My Princess", "My Cutie", "My Darling"],
+["My Lovebug", "My Honey", "My Sweetheart", "My Dream"],
+["My Little Girl", "My Treasure", "My Queen", "My Everything"],
+["My Pretty Girl", "My Baby", "My Sunshine", "My Angel"],
+["My Favorite", "My Sweet Girl", "My Princess", "My Love"]
+];
+
+const centerWords = [
+"I LOVE YOU",
+"MY LOVE",
+"FOREVER",
+"MY PRINCESS"
+];
+
+// =====================================
+// CANVAS
+// =====================================
+
 const canvas = document.getElementById("flower");
 const ctx = canvas.getContext("2d");
 
-// 100 individual words
+let W, H, DPR;
+let stars = [];
+let slots = [];
 
-const words = [
-"LOVE","ALWAYS","FOREVER","DEAR","HEART",
-"BEAUTIFUL","SWEET","ANGEL","DARLING","PRECIOUS",
-"MY LOVE","HAPPINESS","DREAM","SUNSHINE","JOY",
-"CHERISH","ADORE","KINDNESS","MAGIC","SPECIAL",
-"HEAVEN","SMILE","WONDER","TENDER","PURE",
-"ENDLESS","ROMANCE","SOUL","WARMTH","GENTLE",
-"PERFECT","TREASURE","GLOW","HOPE","BLISS",
-"BELOVED","PASSION","HONEY","STAR","FLOWER",
-"DEVOTION","GRACE","PEACE","HEARTBEAT","GOLD",
-"INFINITE","CUDDLE","SINCERE","LOVELY","AMAZING",
-"TOGETHER","SUNRISE","MOONLIGHT","RAINBOW","HUGS",
-"MY WORLD","FAVORITE","SWEETHEART","BLOSSOM","MAGNIFICENT",
-"FAITH","WISH","LAUGHTER","DELIGHT","GORGEOUS",
-"TRUST","CARE","DREAMY","SERENITY","LIGHT",
-"FOREVERMORE","HARMONY","GIFT","BLUSH","STARDUST",
-"MY ANGEL","MY HEART","MY EVERYTHING","ENDLESS JOY",
-"ETERNAL","PRECIOUS","SOULMATE","WONDERFUL",
-"INSPIRATION","TULIP","ROSE","PETAL","BLOOM",
-"DEAREST","GLOWING","DIVINE","UNIQUE","PURE LOVE",
-"MY SUNSHINE","SWEET SOUL","HEART OF GOLD",
-"ONLY YOU","I LOVE YOU"
-];
+let startTime = 0;
+let completedAt = 0;
+let visibleWords = 0;
 
-// Settings
-
-const TOTAL_WORDS = words.length;
 const TOTAL_TIME = 5000;
 const RESTART_DELAY = 2500;
 
-let width, height, dpr;
-let startTime = 0;
-let finishedAt = 0;
-let visibleWords = 0;
-let stars = [];
-
-// Resize
+// =====================================
+// RESIZE
+// =====================================
 
 function resize() {
 
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
 
-    width = window.innerWidth;
-    height = window.innerHeight;
+    W = window.innerWidth;
+    H = window.innerHeight;
 
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
 
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
     createStars();
+    createSlots();
 }
 
-// Background stars
+// =====================================
+// STAR BACKGROUND
+// =====================================
 
 function createStars() {
 
@@ -102,8 +132,8 @@ function createStars() {
     for (let i = 0; i < 65; i++) {
 
         stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
+            x: Math.random() * W,
+            y: Math.random() * H,
             size: Math.random() * 1.5 + 0.4,
             phase: Math.random() * 6
         });
@@ -112,166 +142,317 @@ function createStars() {
 
 function drawBackground(time) {
 
-    const bg = ctx.createRadialGradient(
-        width / 2,
-        height / 2,
-        10,
-        width / 2,
-        height / 2,
-        Math.max(width, height) * 0.8
+    const gradient = ctx.createRadialGradient(
+        W / 2, H / 2, 10,
+        W / 2, H / 2, Math.max(W, H) * 0.8
     );
 
-    bg.addColorStop(0, "#291637");
-    bg.addColorStop(0.55, "#160b24");
-    bg.addColorStop(1, "#090512");
+    gradient.addColorStop(0, "#291637");
+    gradient.addColorStop(0.55, "#160b24");
+    gradient.addColorStop(1, "#090512");
 
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, W, H);
 
     stars.forEach(star => {
 
         ctx.globalAlpha =
-            0.2 + 0.4 *
-            Math.sin(time / 900 + star.phase);
+            0.2 + 0.4 * Math.sin(time / 900 + star.phase);
 
         ctx.fillStyle = "#eac8f0";
 
         ctx.beginPath();
-
-        ctx.arc(
-            star.x,
-            star.y,
-            star.size,
-            0,
-            Math.PI * 2
-        );
-
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fill();
     });
 
     ctx.globalAlpha = 1;
 }
 
-// Calculate each word's position
-// 16 petals, 6 words in each petal
+// =====================================
+// CREATE WORD POSITIONS
+// =====================================
 
-function getWordPosition(index, cx, cy, radius) {
+function createSlots() {
 
-    if (index >= 96) {
+    slots = [];
 
-        const a = (index - 96) * Math.PI / 2;
+    const cx = 0.5;
+    const flowerY = 0.29;
 
-        return {
-            x: cx + Math.cos(a) * radius * 0.09,
-            y: cy + Math.sin(a) * radius * 0.09
-        };
-    }
+    // 1. ROOTS - bottom branches
 
-    const petal = Math.floor(index / 6);
-    const slot = index % 6;
+    const rootBranches = [
+        { x: -0.28, y: 0.91 },
+        { x: -0.14, y: 0.88 },
+        { x: 0, y: 0.93 },
+        { x: 0.14, y: 0.88 },
+        { x: 0.28, y: 0.91 }
+    ];
 
-    const level = Math.floor(slot / 2);
-    const side = slot % 2 === 0 ? -1 : 1;
+    rootBranches.forEach((branch, b) => {
 
-    const angle =
-        petal * (Math.PI * 2 / 16)
-        + side * (0.09 + level * 0.025);
+        for (let i = 0; i < 2; i++) {
 
-    const distance =
-        radius * (0.25 + level * 0.255);
+            const t = i / 2;
 
-    return {
-        x: cx + Math.cos(angle) * distance,
-        y: cy + Math.sin(angle) * distance
-    };
+            slots.push({
+                word: rootWords[b * 2 + i],
+                x: cx + branch.x * (0.45 + t * 0.55),
+                y: 0.77 + (branch.y - 0.77) * (0.5 + t * 0.5),
+                type: "root"
+            });
+        }
+    });
+
+    // 2. MAIN STEM
+
+    stemWords.forEach((word, i) => {
+
+        const t = i / (stemWords.length - 1);
+
+        slots.push({
+            word,
+            x: cx + Math.sin(t * Math.PI * 5) * 0.012,
+            y: 0.75 - t * 0.30,
+            type: "stem"
+        });
+    });
+
+    // 3. LEAVES
+
+    const leafPositions = [
+        [0.36, 0.64], [0.31, 0.61], [0.35, 0.57],
+        [0.64, 0.64], [0.69, 0.61], [0.65, 0.57],
+        [0.40, 0.70], [0.33, 0.68], [0.37, 0.66],
+        [0.60, 0.70], [0.67, 0.68], [0.63, 0.66]
+    ];
+
+    leafWords.forEach((word, i) => {
+
+        slots.push({
+            word,
+            x: leafPositions[i][0],
+            y: leafPositions[i][1],
+            type: "leaf"
+        });
+    });
+
+    // 4. FLOWER PETALS
+
+    const flowerRadius = Math.min(W * 0.43, H * 0.19);
+
+    petals.forEach((petal, p) => {
+
+        const angle =
+            p * (Math.PI * 2 / petals.length)
+            - Math.PI / 2;
+
+        const distances = [0.30, 0.42, 0.54, 0.66];
+
+        petal.forEach((word, j) => {
+
+            const d = flowerRadius * distances[j];
+
+            const side =
+                (j === 1 ? -1 : j === 2 ? 1 : 0)
+                * flowerRadius * 0.045;
+
+            const x =
+                cx * W +
+                Math.cos(angle) * d -
+                Math.sin(angle) * side;
+
+            const y =
+                flowerY * H +
+                Math.sin(angle) * d +
+                Math.cos(angle) * side;
+
+            slots.push({
+                word,
+                x: x / W,
+                y: y / H,
+                type: "petal"
+            });
+        });
+    });
+
+    // 5. FLOWER CENTER
+
+    centerWords.forEach((word, i) => {
+
+        const positions = [
+            [-0.045, -0.015],
+            [0.045, -0.015],
+            [-0.045, 0.025],
+            [0.045, 0.025]
+        ];
+
+        slots.push({
+            word,
+            x: cx + positions[i][0],
+            y: flowerY + positions[i][1],
+            type: "center"
+        });
+    });
 }
 
-// Draw one word
+// =====================================
+// DRAW WORDS
+// =====================================
 
-function drawWord(index, cx, cy, radius, time) {
+function drawWord(slot, index, time) {
 
-    const position = getWordPosition(
-        index,
-        cx,
-        cy,
-        radius
-    );
+    const appearanceTime =
+        startTime + index * (TOTAL_TIME / slots.length);
 
-    const appearTime =
-        startTime + index * (TOTAL_TIME / TOTAL_WORDS);
-
-    const age = time - appearTime;
+    const age = time - appearanceTime;
 
     if (age < 0) return;
 
-    const progress = Math.min(age / 250, 1);
+    const progress = Math.min(age / 220, 1);
 
-    const ease =
-        1 - Math.pow(1 - progress, 3);
+    const ease = 1 - Math.pow(1 - progress, 3);
 
-    const fontSize = Math.max(
-        9,
-        Math.min(13, radius * 0.031)
-    );
+    const x = slot.x * W;
+    const y = slot.y * H;
+
+    const fontSize =
+        slot.type === "petal" ? 10 :
+        slot.type === "center" ? 11 :
+        slot.type === "root" ? 11 : 10;
+
+    const colors = {
+        root: "#d9c5a0",
+        stem: "#c4d4a2",
+        leaf: "#d4e6ae",
+        petal: "#f5c8ed",
+        center: "#ffe2f4"
+    };
 
     ctx.save();
 
     ctx.globalAlpha = ease;
 
-    ctx.translate(
-        position.x,
-        position.y + (1 - ease) * 9
-    );
-
-    ctx.scale(
-        0.65 + ease * 0.35,
-        0.65 + ease * 0.35
-    );
-
-    ctx.font = `bold ${fontSize}px Georgia`;
+    ctx.translate(x, y - (1 - ease) * 8);
 
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    const colors = [
-        "#ffe1f2",
-        "#f3b9dc",
-        "#eacb92",
-        "#e6c1ef"
-    ];
+    ctx.font = `bold ${fontSize}px Georgia`;
 
-    ctx.fillStyle = colors[index % colors.length];
+    ctx.fillStyle = colors[slot.type];
 
-    ctx.shadowColor = "#e6a4df";
-    ctx.shadowBlur = 10;
+    ctx.shadowColor =
+        slot.type === "leaf" || slot.type === "stem"
+        ? "#a6c88b"
+        : "#e89bd8";
 
-    ctx.fillText(
-        words[index],
-        0,
-        0
-    );
+    ctx.shadowBlur = 9;
+
+    ctx.fillText(slot.word, 0, 0, W * 0.18);
 
     ctx.restore();
 }
 
-// Center heart
+// =====================================
+// STEM AND ROOT LINES
+// =====================================
 
-function drawHeart(cx, cy, time) {
+function drawPlantStructure(progress) {
 
-    const pulse =
-        1 + Math.sin(time / 250) * 0.08;
+    const cx = W * 0.5;
+    const baseY = H * 0.77;
+    const flowerY = H * 0.43;
+
+    ctx.save();
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    // Main stem
+
+    const stemProgress = Math.max(
+        0,
+        Math.min(1, (progress - 0.15) / 0.18)
+    );
+
+    if (stemProgress > 0) {
+
+        ctx.beginPath();
+        ctx.moveTo(cx, baseY);
+
+        ctx.quadraticCurveTo(
+            cx + 12,
+            H * 0.61,
+            cx,
+            flowerY
+        );
+
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = `rgba(156,190,123,${stemProgress * 0.55})`;
+
+        ctx.stroke();
+    }
+
+    // Roots
+
+    const rootProgress = Math.min(1, progress / 0.16);
+
+    const rootEnds = [
+        [cx - W * 0.27, H * 0.92],
+        [cx - W * 0.14, H * 0.89],
+        [cx, H * 0.94],
+        [cx + W * 0.14, H * 0.89],
+        [cx + W * 0.27, H * 0.92]
+    ];
+
+    rootEnds.forEach((end, i) => {
+
+        ctx.beginPath();
+
+        ctx.moveTo(cx, baseY);
+
+        ctx.quadraticCurveTo(
+            cx + (end[0] - cx) * 0.35,
+            H * 0.83,
+            cx + (end[0] - cx) * rootProgress,
+            baseY + (end[1] - baseY) * rootProgress
+        );
+
+        ctx.lineWidth = 1.5;
+
+        ctx.strokeStyle =
+            `rgba(195,151,180,${rootProgress * 0.55})`;
+
+        ctx.stroke();
+    });
+
+    ctx.restore();
+}
+
+// =====================================
+// HEART CENTER
+// =====================================
+
+function drawHeart(time) {
+
+    const cx = W * 0.5;
+    const cy = H * 0.29;
+
+    const pulse = 1 + Math.sin(time / 240) * 0.07;
 
     ctx.save();
 
     ctx.translate(cx, cy);
     ctx.scale(pulse, pulse);
 
-    ctx.font = "bold 33px Georgia";
+    ctx.font = "30px Georgia";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    ctx.fillStyle = "#f2b6dc";
-    ctx.shadowColor = "#e58acb";
+    ctx.fillStyle = "#f6b5df";
+    ctx.shadowColor = "#e98bce";
     ctx.shadowBlur = 20;
 
     ctx.fillText("♥", 0, 0);
@@ -279,90 +460,52 @@ function drawHeart(cx, cy, time) {
     ctx.restore();
 }
 
-// Small decorative glow in center
-
-function drawCenter(cx, cy, radius) {
-
-    ctx.beginPath();
-
-    ctx.arc(
-        cx,
-        cy,
-        radius * 0.13,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.strokeStyle = "rgba(238,190,222,0.25)";
-    ctx.lineWidth = 1;
-
-    ctx.stroke();
-
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-
-    ctx.fillStyle = "#e6c88e";
-    ctx.font = "10px Georgia";
-
-    ctx.fillText(
-        "MADE WITH LOVE",
-        cx,
-        cy + radius * 0.19
-    );
-}
-
-// Main animation
+// =====================================
+// ANIMATION
+// =====================================
 
 function animate(time) {
 
-    const cx = width / 2;
-    const cy = height / 2;
-
-    const radius = Math.min(width, height) * 0.39;
-
     drawBackground(time);
-
-    // Reveal words one by one over five seconds
 
     const elapsed = time - startTime;
 
-    visibleWords = Math.min(
-        TOTAL_WORDS,
-        Math.floor(
-            elapsed / (TOTAL_TIME / TOTAL_WORDS)
-        ) + 1
-    );
+    const progress = Math.min(elapsed / TOTAL_TIME, 1);
 
-    // Draw the words that have appeared
+    // Draw plant structure gradually
+
+    drawPlantStructure(progress);
+
+    // Reveal words one by one
+
+    visibleWords = Math.min(
+        slots.length,
+        Math.floor(progress * slots.length) + 1
+    );
 
     for (let i = 0; i < visibleWords; i++) {
 
-        drawWord(
-            i,
-            cx,
-            cy,
-            radius,
-            time
-        );
+        drawWord(slots[i], i, time);
     }
 
-    // Center decoration
+    // Heart appears with the flower
 
-    drawCenter(cx, cy, radius);
-    drawHeart(cx, cy, time);
+    if (progress > 0.75) {
+        drawHeart(time);
+    }
 
-    // Restart after the flower is complete
+    // Restart
 
-    if (visibleWords >= TOTAL_WORDS) {
+    if (visibleWords >= slots.length) {
 
-        if (finishedAt === 0) {
-            finishedAt = time;
+        if (completedAt === 0) {
+            completedAt = time;
         }
 
-        if (time - finishedAt >= RESTART_DELAY) {
+        if (time - completedAt >= RESTART_DELAY) {
 
             startTime = time;
-            finishedAt = 0;
+            completedAt = 0;
             visibleWords = 0;
         }
     }
@@ -370,7 +513,9 @@ function animate(time) {
     requestAnimationFrame(animate);
 }
 
-// Start
+// =====================================
+// START
+// =====================================
 
 window.addEventListener("resize", resize);
 
